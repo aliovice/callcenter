@@ -4,8 +4,8 @@ const dotenv = require('dotenv').config()
 const app = express()
 const colors = require('colors')
 const cors = require("cors")
-const  connectDb  = require('./client/config/db')
-const { errorHandler } = require('./client/middleware/errorMiddleware')
+const  connectDb  = require('./config/db')
+const { errorHandler } = require('./middleware/errorMiddleware')
 
 connectDb()
 
@@ -18,9 +18,9 @@ app.use(cors())
 
 
 
-app.use('/api/v1/companys',require('./client/routes/companyRoutes'))
-app.use('/api/v1/contract',require('./client/routes/contractRoutes'))
-app.use('/api/v1/information',require('./client/routes/informationRoutes'))
+app.use('/api/v1/companys',require('./routes/companyRoutes'))
+app.use('/api/v1/contract',require('./routes/contractRoutes'))
+app.use('/api/v1/information',require('./routes/informationRoutes'))
 
 // for front
 //  if(process.env.NODE_ENV === production){
