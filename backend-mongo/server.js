@@ -23,16 +23,16 @@ app.use('/api/v1/contract',require('./client/routes/contractRoutes'))
 app.use('/api/v1/information',require('./client/routes/informationRoutes'))
 
 // for front
-// if(process.env.NODE_ENV === production){
-//     app.use(express.static(path.join(__dirname,"../front/build")))
-//     app.get("*",(req,res)=> res.sendFile(
-//         path.resolve(__dirname, "../","front","build","index.html")
-//     ))
-// } else{
-//     app.get("/",(req,res)=>{
-//         res.send("in production mode")
-//     })
-// }
+ if(process.env.NODE_ENV === production){
+     app.use(express.static(path.join(__dirname,"../front/build")))
+     app.get("*",(req,res)=> res.sendFile(
+         path.resolve(__dirname, "../","front","build","index.html")
+     ))
+ } else{
+     app.get("/",(req,res)=>{
+         res.send("in production mode")
+     })
+ }
 
 app.use(errorHandler)
 
