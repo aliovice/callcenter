@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation,Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import axios from "axios"
 import swal from 'sweetalert'
 
@@ -83,9 +83,6 @@ export default function Offers() {
             <div className='container'>
                 <div class="h1 d-flex justify-content-center m-4">The offers</div>
                 <div className="row">
-
-
-
                     <table class="table  table-dark table-borderless">
                         <thead>
                             <tr>
@@ -99,13 +96,12 @@ export default function Offers() {
 
 
                         {state.data !== "" ? state.data.filter(campany =>
-                            campany.region === state.region
-                            && campany.sex === state.sex
+                             campany.region === state.region
+                             && campany.sex === state.sex
                              && campany.date < state.date
                         ).map(filteredCompanys => (
 
-                            <> {<tbody key={filteredCompanys._id} >
-
+                            <> {<tbody key={filteredCompanys._id}>
                                 <tr onClick={() => {
                                     setExecute(true);
                                     setId(filteredCompanys._id)
@@ -153,22 +149,21 @@ export default function Offers() {
                                     <div className='col'>
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalLabelInformation">
                                             i want more information
-
                                         </button>
-                                         <ul>
-                                            {/* {datacontract.map(it => 
+                                        {/* <ul>
+                                             {datacontract.map(it => 
                                                 {it._id === id ?  <li>{it.name}{it.tarif}{it.sex}</li>
                                             :""}
                                                
-                                            )} */}
-                                        </ul> 
+                                            )} 
+                                        </ul> */}
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-body">
+                            {/* <div class="modal-body">
                                 {id}
                                 {datacontract.name}
-                            </div>
+                            </div> */}
                             <div class="modal-footer">
                                 {/* <Link to="/test" state={{id}}
                                 type="button" class="btn btn-secondary">Close</Link> */}
