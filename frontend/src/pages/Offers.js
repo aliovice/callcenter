@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from "axios"
 import swal from 'sweetalert'
+import contract from "../assets/contract.png"
+import info from "../assets/info.jpg"
 
 
 export default function Offers() {
@@ -22,7 +24,7 @@ export default function Offers() {
     const location = useLocation()
 
     useEffect(() => {
-       
+
         if (execute === true) {
             axios.get(`http://localhost:5000/api/v1/companys/${id}`).then(res => {
                 console.log(res.data)
@@ -31,7 +33,7 @@ export default function Offers() {
             }).catch(err => {
                 console.log(err)
             })
-        } 
+        }
     }, [id]);
 
     const handleChange = (e) => {
@@ -51,7 +53,7 @@ export default function Offers() {
                 title: "Message",
                 text: "Your request has ben sent!",
                 icon: "success",
-              });
+            });
         }).catch(err => {
             console.log(err)
         })
@@ -65,7 +67,7 @@ export default function Offers() {
                 title: "Message",
                 text: "Your request has ben sent!",
                 icon: "success",
-              });
+            });
 
         }).catch(err => {
             console.log(err)
@@ -96,9 +98,9 @@ export default function Offers() {
 
 
                         {state.data !== "" ? state.data.filter(campany =>
-                             campany.region === state.region
-                             && campany.sex === state.sex
-                             && campany.date < state.date
+                            campany.region === state.region
+                            && campany.sex === state.sex
+                            && campany.date < state.date
                         ).map(filteredCompanys => (
 
                             <> {<tbody key={filteredCompanys._id}>
@@ -124,32 +126,49 @@ export default function Offers() {
                             }</>
 
                         )) : <p>no resultat</p>}
-
-
                     </table>
                 </div>
 
 
                 {/*-------------------------------------------------------------- first modal -------------------------------------------------------*/}
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Next step</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Next step</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className='container mt-5'>
                                 <div className='row'>
-                                    <div className='col'>
-                                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalLabelContract">
-                                            i want to make a deal
-                                        </button>
+                                    <div className='col-lg-6 col-md-6'>
+
+
+                                        <div className="card" style={{width: "10rem"}}>
+                                             <img className="card-img-top" style={{width: "10rem",height:"8rem"}}  src={contract} alt="Card image cap" /> 
+                                            <div className="card-body">
+                                                <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalLabelContract">
+                                                    i want to make a deal
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+
                                     </div>
-                                    <div className='col'>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalLabelInformation">
-                                            i want more information
-                                        </button>
+                                    <div className='col-lg-6 col-md-6'>
+
+                                        <div className="card" style={{width: "10rem"}}>
+                                             <img className="card-img-top" style={{width: "10rem",height:"8rem",display: "block"}} src={info} alt="Card image cap" />
+                                            <div className="card-body">
+                                                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalLabelInformation">
+                                                    i want more information
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+
                                         {/* <ul>
                                              {datacontract.map(it => 
                                                 {it._id === id ?  <li>{it.name}{it.tarif}{it.sex}</li>
@@ -164,11 +183,11 @@ export default function Offers() {
                                 {id}
                                 {datacontract.name}
                             </div> */}
-                            <div class="modal-footer">
+                            <div className="modal-footer">
                                 {/* <Link to="/test" state={{id}}
-                                type="button" class="btn btn-secondary">Close</Link> */}
+                                type="button" className="btn btn-secondary">Close</Link> */}
 
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
                             </div>
                         </div>
@@ -178,52 +197,45 @@ export default function Offers() {
 
                 {/*-------------------------------------------------------------- contract modal -------------------------------------------------------*/}
 
-                <div class="modal fade" id="exampleModalLabelContract" tabindex="-1" aria-labelledby="exampleModalLabelContract" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Complete the formular</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal fade" id="exampleModalLabelContract" tabindex="-1" aria-labelledby="exampleModalLabelContract" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Complete the formular</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className='container mt-5'>
                                 <div className='row'>
                                     <div className='col'>
 
-                                        <div class="mb-3">
-                                            <label class="form-label">Full Name</label>
+                                        <div className="mb-3">
+                                            <label className="form-label">Full Name</label>
                                             <input type="text" onChange={handleChange}
-                                                class="form-control" name="full_name" value={values.full_name} aria-describedby="helpId" placeholder="" />
-
+                                                className="form-control" name="full_name" value={values.full_name} aria-describedby="helpId" placeholder="" />
                                         </div>
-
                                     </div>
                                     <div className='col'>
-
-                                        <label for="" class="form-label">Date</label>
+                                        <label for="" className="form-label">Date</label>
                                         <input type="date" onChange={handleChange}
-                                            class="form-control" name="date" value={values.date} aria-describedby="helpId" placeholder="" />
-
-
+                                            className="form-control" name="date" value={values.date} aria-describedby="helpId" placeholder="" />
                                     </div>
                                 </div>
                                 <div className='row'>
                                     <div className='col'>
-                                        <label for="" class="form-label">Phone number</label>
+                                        <label for="" className="form-label">Phone number</label>
                                         <input type="text" onChange={handleChange}
-                                            class="form-control" name="phone" value={values.phone} aria-describedby="helpId" placeholder="" />
-
+                                            className="form-control" name="phone" value={values.phone} aria-describedby="helpId" placeholder="" />
                                     </div>
                                     <div className='col'>
-                                        <label for="" class="form-label">Adress</label>
+                                        <label for="" className="form-label">Adress</label>
                                         <input type="text" onChange={handleChange}
-                                            class="form-control" name="adress" value={values.adress} aria-describedby="helpId" placeholder="" />
+                                            className="form-control" name="adress" value={values.adress} aria-describedby="helpId" placeholder="" />
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="modal-footer mt-5">
-                                {/* <button type="button" class="btn btn-secondary" >Close</button> */}
-                                <button onClick={sendContract} type="button" data-bs-dismiss="modal" class="btn btn-primary">Send</button>
+                            <div className="modal-footer mt-5">
+                                {/* <button type="button" className="btn btn-secondary" >Close</button> */}
+                                <button onClick={sendContract} type="button" data-bs-dismiss="modal" className="btn btn-primary">Send</button>
                             </div>
                         </div>
                     </div>
@@ -233,21 +245,21 @@ export default function Offers() {
 
                 {/*-------------------------------------------------------------- asking information modal -------------------------------------------------------*/}
 
-                <div class="modal fade" id="exampleModalLabelInformation" tabindex="-1" aria-labelledby="exampleModalLabelInformation" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Complete the formular</h5>
+                <div className="modal fade" id="exampleModalLabelInformation" tabindex="-1" aria-labelledby="exampleModalLabelInformation" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Complete the formular</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className='container mt-5'>
                                 <div className='row'>
                                     <div className='col'>
 
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">Full Name</label>
+                                        <div className="mb-3">
+                                            <label for="" className="form-label">Full Name</label>
                                             <input type="text" onChange={handleChange}
-                                                class="form-control" name="full_name" value={values.full_name}
+                                                className="form-control" name="full_name" value={values.full_name}
                                                 aria-describedby="helpId" placeholder="" />
 
                                         </div>
@@ -255,55 +267,41 @@ export default function Offers() {
                                     </div>
                                     <div className='col'>
 
-                                        <label for="" class="form-label">Phone</label>
+                                        <label for="" className="form-label">Phone</label>
                                         <input type="text" onChange={handleChange}
-                                            class="form-control" name="phone" value={values.phone}
+                                            className="form-control" name="phone" value={values.phone}
                                             aria-describedby="helpId" placeholder="" />
 
                                     </div>
                                 </div>
                                 <div className='row'>
                                     <div className='col'>
-                                        <label for="" class="form-label">Date to call you</label>
+                                        <label for="" className="form-label">Date to call you</label>
                                         <input type="date" onChange={handleChange}
-                                            class="form-control" name="date" value={values.date}
+                                            className="form-control" name="date" value={values.date}
                                             aria-describedby="helpId" placeholder="" />
 
                                     </div>
 
                                     <div className='col'>
-                                        <label for="" class="form-label">Adress</label>
+                                        <label for="" className="form-label">Adress</label>
                                         <input type="text" onChange={handleChange}
-                                            class="form-control" name="adress" value={values.adress} aria-describedby="helpId" placeholder="" />
+                                            className="form-control" name="adress" value={values.adress} aria-describedby="helpId" placeholder="" />
 
 
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="modal-footer mt-5">
-                                {/* <button type="button" class="btn btn-secondary" >Close</button> */}
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={sendInformation}>Send</button>
+                            <div className="modal-footer mt-5">
+                                {/* <button type="button" className="btn btn-secondary" >Close</button> */}
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={sendInformation}>Send</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/*-------------------------------------------------------------- End asking information modal -------------------------------------------------------*/}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             </div>
 

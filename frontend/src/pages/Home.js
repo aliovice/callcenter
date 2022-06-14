@@ -52,14 +52,14 @@ export default class Home extends Component {
                         <div className='col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12'>
                             <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active">
+                                    {/* <div class="carousel-item active">
                                         <img src={slide1} style={{display:"block",width:1200,height:600}} alt="slide pic1" />
                                     </div>
                                     <div class="carousel-item">
                                         <img src={slide2} style={{display:"block",width:1200,height:600}} alt="slide pic2" />
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src={slide3} style={{display:"block",width:1200,height:600}} alt="slide pic3" />
+                                    </div> */}
+                                    <div class="carousel-item active">
+                                        <img src={slide1} style={{display:"block",width:1200,height:600}} alt="slide pic3" />
                                     </div>
                                 </div>
                             </div>
