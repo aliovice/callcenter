@@ -3,38 +3,73 @@ import { useLocation } from 'react-router-dom'
 import axios from "axios"
 import swal from 'sweetalert'
 import contract from "../assets/contract.png"
-import info from "../assets/info.jpg"
+import info from "../assets/info.png"
+import Offer from '../components/Offer'
+
 
 
 export default function Offers() {
 
     const [id, setId] = useState("");
     const [execute, setExecute] = useState(false);
+    // const [thisYear, setThisYear] = useState("");
+    // const [calcul, setCalcul] = useState("");
     // const [full_name, setFull_name] = useState("");
     // const [phone, setPhone] = useState("");
     // const [adress, setAdress] = useState("");
     // const [date, setDate] = useState("");
     const [datacontract, setDatacontract] = useState([]);
+    const [birth_day, setBirth_day] = useState('');
+    const [formFields, setFormFields] = useState(useLocation.formFields);
+
     const [values, setValues] = useState({
         full_name: "",
         phone: "",
         adress: "",
-        date: ""
+        date: "",
+        current_company: "",
+        prix: "",
+        id: ''
     });
     const location = useLocation()
 
     useEffect(() => {
+        // {
+        //     {
+        //         location.state.formFields.map(item => {
+        //             setBirth_day(item.birth_day)
+        //         })
+        //     }
+        // }
+        // if (execute === true) {
+        //     axios.get(`http://localhost:5000/api/v1/companys/${id}`).then(res => {
+        //         console.log(res.data)
+        //         setDatacontract(res.data)
+        //     }).catch(err => {
+        //         console.log(err)
+        //     })
+        // }
+        // var currentDate = new Date();
+        // var currentYear = currentDate.getFullYear();
+        // setThisYear(currentYear)
+        // console.log(currentYear);
 
-        if (execute === true) {
-            axios.get(`http://localhost:5000/api/v1/companys/${id}`).then(res => {
-                console.log(res.data)
-                setDatacontract(res.data)
+        // var theDate = new Date(state.date)
+        // var age = theDate.getFullYear();
+        // setCalcul(age)
+        // console.log(age);
 
-            }).catch(err => {
-                console.log(err)
-            })
-        }
+
+        axios.get('http://localhost:5000/api/v1/companys').then(res => {
+            console.log(res.data)
+            setDatacontract(res.data)
+        }).catch(err => {
+            console.log(err);
+        })
+
     }, [id]);
+
+
 
     const handleChange = (e) => {
         setValues({
@@ -46,14 +81,32 @@ export default function Offers() {
 
 
     const sendContract = () => {
-        axios.post("http://localhost:5000/api/v1/contract", values).then(res => {
+        const Alldata = {
+            adress: values.adress,
+            current_company: values.current_company,
+            date: values.date,
+            full_name: values.full_name,
+            id,
+            phone: values.phone,
+            prix: values.prix,
+        }
+        axios.post("http://localhost:5000/api/v1/contract", Alldata).then(res => {
             // setDatacontract(res.data)
-            console.log(res.data)
-            swal({
-                title: "Message",
-                text: "Your request has ben sent!",
-                icon: "success",
-            });
+            console.log(res)
+            if (res.data.message) {
+                swal({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
+            } else {
+                swal({
+                    title: "Message",
+                    text: "Your request has ben sent!",
+                    icon: "success",
+                });
+            }
+
         }).catch(err => {
             console.log(err)
         })
@@ -75,58 +128,101 @@ export default function Offers() {
 
     }
 
+    // const calculAge = () => {
+    //     var currentDate = new Date();
+    //     var currentYear = currentDate.getFullYear();
+    //     setThisYear(currentYear)
+    //     console.log(currentYear);
+
+    //     var theDate = new Date(state.date)
+    //     var age = theDate.getFullYear();
+    //     setCalcul(age)
+    //     console.log(age);
+
+    // console.log(currentDate - age)
+    // }
 
 
-    const { state } = location.state
-    console.log(datacontract)
-    console.log(id, execute)
+
+    const { state } = location
+    console.log(state)
+    console.log(state.dt)
+    console.log(state.formFields.birth_day)
+    console.log(id)
     return (
         <>
             <div className='container'>
-                <div class="h1 d-flex justify-content-center m-4">The offers</div>
+                <div className="h1 d-flex justify-content-center m-4">The offers</div>
                 <div className="row">
-                    <table class="table  table-dark table-borderless">
-                        <thead>
-                            <tr>
-                                <th scope="col">Company</th>
-                                <th scope="col">Region</th>
-                                <th scope="col">Sex</th>
-                                <th scope="col">Trif</th>
-                                <th scope="col">#</th>
-                            </tr>
-                        </thead>
+
+                    {state.state !== "" ? datacontract.filter(campany =>
+                          campany.date > state.dt.date 
+                          && campany.region === state.dt.region
+                    ).map(filteredCompanys => (
+
+                        <>
+                            <div className='col-6  mt-4'>
+                                
+                                <div class="card w-75" key={filteredCompanys._id}>
+                                    <div class="card-body">
+                                    <h3>{state.full_name1}</h3>
+                                        <h5 class="card-title  d-flex justify-content-between">
+                                            <span>{filteredCompanys.name}</span>
+                                            <span>{filteredCompanys.region}</span>
+                                        </h5>
+                                        <p class="card-text d-flex justify-content-around">
+                                            <h3>{filteredCompanys.tarif} </h3>
+                                            <span>Net premium CHF / month</span>
+                                        </p>
+                                        <a class="btn btn-outline-primary" onClick={() => setId(filteredCompanys._id)}
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        >
+                                            this offer it's ok for me</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
 
 
-                        {state.data !== "" ? state.data.filter(campany =>
-                            campany.region === state.region
-                            && campany.sex === state.sex
-                            && campany.date < state.date
+                    )) : <p>no resultat</p>}
+
+
+
+
+                    {/* ------------------------------ seconde person -----------------------------------------*/}
+                    {/* <Offer state={state.data} state1={state.formFields} datacontract={datacontract} /> */}
+                                
+                    {state.formFields.map(it => (
+                        <p>{it.birth_day.length > 1 ? datacontract.filter(campany =>
+                            campany.date > it.birth_day
+                            && campany.region == state.region
                         ).map(filteredCompanys => (
-
-                            <> {<tbody key={filteredCompanys._id}>
-                                <tr onClick={() => {
-                                    setExecute(true);
-                                    setId(filteredCompanys._id)
-                                }}>
-                                    {/* <tr onClick={() => getInfo()}> */}
-                                    <th scope="row">{filteredCompanys.name}</th>
-                                    <td>{filteredCompanys.region}</td>
-                                    <td>{filteredCompanys.sex}</td>
-                                    <td>{filteredCompanys.tarif}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            this offer it's ok for me
-                                        </button>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-
-                            }</>
-
-                        )) : <p>no resultat</p>}
-                    </table>
+                        <>
+                           <div className='col-6  mt-4'>
+                          
+                                <div class="card w-75" key={filteredCompanys._id}>
+                                    <div class="card-body">
+                                    <h3>{it.full_name}</h3>
+                                        <h5 class="card-title  d-flex justify-content-between">
+                                            <span>{filteredCompanys.name}</span>
+                                            <span>{filteredCompanys.region}</span>
+                                        </h5>
+                                        <p class="card-text d-flex justify-content-around">
+                                            <h3>{filteredCompanys.tarif} </h3>
+                                            <span>Net premium CHF / month</span>
+                                            <span>{filteredCompanys.full_name} </span>
+                                        </p>
+                                        <a class="btn btn-outline-primary" onClick={() => setId(filteredCompanys._id)}
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        >
+                                            this offer it's ok for me</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                           
+                        )) : ''}</p>
+                    ))}
                 </div>
 
 
@@ -144,8 +240,8 @@ export default function Offers() {
                                     <div className='col-lg-6 col-md-6'>
 
 
-                                        <div className="card" style={{width: "10rem"}}>
-                                             <img className="card-img-top" style={{width: "10rem",height:"8rem"}}  src={contract} alt="Card image cap" /> 
+                                        <div className="card" style={{ width: "10rem" }}>
+                                            <img className="card-img-top" style={{ width: "10rem", height: "8rem" }} src={contract} alt="Card image cap" />
                                             <div className="card-body">
                                                 <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalLabelContract">
                                                     i want to make a deal
@@ -158,8 +254,8 @@ export default function Offers() {
                                     </div>
                                     <div className='col-lg-6 col-md-6'>
 
-                                        <div className="card" style={{width: "10rem"}}>
-                                             <img className="card-img-top" style={{width: "10rem",height:"8rem",display: "block"}} src={info} alt="Card image cap" />
+                                        <div className="card" style={{ width: "10rem" }}>
+                                            <img className="card-img-top" style={{ width: "10rem", height: "8rem", display: "block" }} src={info} alt="Card image cap" />
                                             <div className="card-body">
                                                 <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalLabelInformation">
                                                     i want more information
@@ -167,25 +263,11 @@ export default function Offers() {
                                             </div>
                                         </div>
 
-
-
-                                        {/* <ul>
-                                             {datacontract.map(it => 
-                                                {it._id === id ?  <li>{it.name}{it.tarif}{it.sex}</li>
-                                            :""}
-                                               
-                                            )} 
-                                        </ul> */}
                                     </div>
                                 </div>
                             </div>
-                            {/* <div class="modal-body">
-                                {id}
-                                {datacontract.name}
-                            </div> */}
+
                             <div className="modal-footer">
-                                {/* <Link to="/test" state={{id}}
-                                type="button" className="btn btn-secondary">Close</Link> */}
 
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
@@ -230,6 +312,19 @@ export default function Offers() {
                                         <label for="" className="form-label">Adress</label>
                                         <input type="text" onChange={handleChange}
                                             className="form-control" name="adress" value={values.adress} aria-describedby="helpId" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div className='col'>
+                                        <label for="" className="form-label">Your Current company </label>
+                                        <input type="text" onChange={handleChange}
+                                            className="form-control" name="current_company" value={values.current_company} aria-describedby="helpId" placeholder="" />
+                                    </div>
+                                    <div className='col'>
+                                        <label for="" className="form-label">Prix </label>
+                                        <input type="text" onChange={handleChange}
+                                            className="form-control" name="prix" value={values.prix} aria-describedby="helpId" placeholder="" />
                                     </div>
                                 </div>
                             </div>

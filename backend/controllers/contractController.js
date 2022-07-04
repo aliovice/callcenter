@@ -18,7 +18,10 @@ const setContract = asyncHandler(async (req,res) =>{
         full_name:req.body.full_name,
         phone:req.body.phone,
         adress:req.body.adress,
-        date:req.body.date
+        date:req.body.date,
+        current_company:req.body.current_company,
+        prix:req.body.prix,
+        id:req.body.id
     }
     if(!objeContract){
         res.status(400)

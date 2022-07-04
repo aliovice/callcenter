@@ -26,6 +26,11 @@ const companysSchema = mongoose.Schema({
         required: true, // [true : 'please add a company name']
 
     },
+    qt_pers: {
+        type: Number,
+        required: true, // [true : 'please add a company name']
+
+    },
 },
     {
         timestamps : true
