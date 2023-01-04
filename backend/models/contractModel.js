@@ -1,12 +1,12 @@
 const mongoose = require("mongoose")
 
 const contractSchema = mongoose.Schema({
-    full_name: {
+    nom: {
         type: String,
         required: true, // [true : 'please add a company name']
     
      },
-        phone: {
+        prenom: {
          type: String,
          required: true, // [true : 'please add a company name']
 
@@ -16,24 +16,19 @@ const contractSchema = mongoose.Schema({
          required: true, // [true : 'please add a company name']
 
      },
-     date: {
-         type: Date,
-         required: true, // [true : 'please add a company name']
-
-     },
-     current_company: {
+     ville: {
          type: String,
          required: true, // [true : 'please add a company name']
 
      },
-      prix: {
+      phone: {
          type: Number,
          required: true, // [true : 'please add a company name']
 
-     }, id: {
-         type: String,
+     }, date: {
+         type: Date,
          required: true, // [true : 'please add a company name']
-
+         min: new Date(),
      },
 },
     {

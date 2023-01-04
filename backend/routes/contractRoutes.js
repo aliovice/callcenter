@@ -1,15 +1,17 @@
 const express = require("express")
 const router = express.Router()
-const { getContract,setContract } = require('../controllers/contractController')
+const { getContract,setContract,getContractsById, updateContract } = require('../controllers/contractController')
 
 
 router.get('/getAll', getContract)
+router.get('/:id', getContractsById)
 router.post('/',setContract)
+router.put('/:id',updateContract)
 
 
 
 // router.put('/:id', (req, res) => {
-//     res.send('its worg')
+//     res.send('its work')
 // })
 
 
