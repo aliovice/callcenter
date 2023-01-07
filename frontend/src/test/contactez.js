@@ -18,6 +18,12 @@ class contactez extends Component {
         }
     }
 
+    // componentDidMount(){
+    //     axios.get('http://line.mytv-top.com/get.php?username=700470041&password=UEJDH1X7AO&type=m3u_plus&output=mpegts').then(res=>{
+    //         console.log(res)
+    //     })
+    // }
+
     hnadleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -43,6 +49,7 @@ class contactez extends Component {
                 phone: '',
                 date: ''
             })
+            
         }).catch(err => {
             console.warn(err)
         })
